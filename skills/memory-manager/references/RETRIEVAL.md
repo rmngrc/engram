@@ -41,7 +41,7 @@ Use the cached version if you already read it this session and no write has occu
 obsidian read file="_meta/taxonomy.md" vault="<vault-name>"
 ```
 
-If obsidian-cli is unavailable, use the filesystem Read tool on the vault directory.
+If obsidian-cli is unavailable, read the file directly from the vault directory.
 
 **Step 2: Identify relevant folders**
 
@@ -71,7 +71,7 @@ If structured lookup found nothing, run a keyword search:
 obsidian search query="<relevant terms>" vault="<vault-name>"
 ```
 
-If obsidian-cli is unavailable, use the Grep tool across the vault directory with relevant terms as the pattern.
+If obsidian-cli is unavailable, search file contents across the vault directory using relevant terms as the pattern.
 
 **Step 6: Read top matches from search**
 
@@ -91,7 +91,7 @@ When retrieving from a vault that serves multiple projects, filter results by pr
 
 **Finding the current project name:**
 
-1. Check `.claude/memory.json` in the project root -- it may contain a `project` field
+1. Check `.engram/config.json` in the project root -- it may contain a `project` field
 2. If not, use the project directory's basename (e.g., `/Users/me/dev/my-api` → `my-api`)
 3. If still unclear, ask the user before filtering
 
