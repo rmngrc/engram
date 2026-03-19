@@ -1,6 +1,6 @@
 # engram: Design Spec
 
-Pure-skill Claude Code plugin that uses obsidian-cli to autonomously manage an Obsidian vault as project memory.
+Pure-skill AI coding agent plugin that uses obsidian-cli to autonomously manage an Obsidian vault as project memory.
 
 ## Plugin Structure
 
@@ -21,7 +21,7 @@ engram/
 
 Dependency: `obsidian-skills` (specifically `obsidian-cli` and `obsidian-markdown`).
 
-Distributed as a standalone repo. Installable via Claude Code marketplace or manually.
+Distributed as a standalone repo. Installable via AI coding agent marketplace or manually.
 
 ## Assumed CLI Surface Area
 
@@ -35,15 +35,15 @@ The skill depends on these `obsidian-cli` commands:
 | `obsidian search query="..." vault="name"` | Full-text search across vault |
 | `obsidian read path="_meta/taxonomy.md"` | Read taxonomy (structured lookup entry point) |
 
-For operations needed by `/memory-optimize` (delete, move, rename), the agent uses filesystem tools (Bash `mv`/`rm`, or Write/Edit) since obsidian-cli doesn't expose these. The agent updates taxonomy after any such operation.
+For operations needed by `/memory-optimize` (delete, move, rename), the agent uses filesystem tools (shell `mv`/`rm`, or file write/edit operations) since obsidian-cli doesn't expose these. The agent updates taxonomy after any such operation.
 
 Vault targeting: `vault="name"` parameter on all commands. The skill resolves the vault name from config.
 
-If a command is unavailable in the user's obsidian-cli version, the agent should fall back to filesystem operations via standard tools (Read, Write, Grep).
+If a command is unavailable in the user's obsidian-cli version, the agent should fall back to filesystem operations via standard tools (file read, file write, content search).
 
 ## Configuration
 
-### Project-side (`.claude/memory.json`)
+### Project-side (`.engram/config.json`)
 
 ```json
 {
@@ -144,7 +144,7 @@ Agent writes without being asked:
 
 - Things derivable from code or git history
 - Ephemeral task state (use tasks/plans for that)
-- Anything already in CLAUDE.md
+- Anything already in the project instructions file (e.g. CLAUDE.md, .cursorrules, AGENTS.md)
 - Duplicate of an existing memory (update existing note instead)
 
 ### Write flow
@@ -155,9 +155,9 @@ Agent writes without being asked:
 4. Updates `_meta/taxonomy.md` with any structural changes
 5. Uses `obsidian-cli` for all vault operations
 
-### Subagent rule
+### Sub-agent rule
 
-Subagents cannot write to memory. The skill instructions include a directive: "If you are running as a subagent (dispatched by another agent), do not write to the memory vault. Instead, include memory-worthy observations in your response to the parent agent." The main agent decides what to store.
+Sub-agents or delegated tasks cannot write to memory. The skill instructions include a directive: "If you are running as a sub-agent or delegated task (dispatched by another agent), do not write to the memory vault. Instead, include memory-worthy observations in your response to the parent agent." The main agent decides what to store.
 
 ### Error handling
 
@@ -168,7 +168,7 @@ If an obsidian-cli command fails:
 
 ### Concurrency
 
-The skill is designed for single-agent writes (enforced by the subagent rule). If two independent Claude Code sessions target the same vault, last-write-wins applies to taxonomy. `/memory-sync` can repair inconsistencies after the fact. The skill does not implement locking.
+The skill is designed for single-agent writes (enforced by the sub-agent rule). If two independent AI coding agent sessions target the same vault, last-write-wins applies to taxonomy. `/memory-sync` can repair inconsistencies after the fact. The skill does not implement locking.
 
 ## Memory Retrieval
 
@@ -220,7 +220,7 @@ For adding the skill to an existing project:
    - Team/people context
    - Coding conventions & patterns
    - Known issues / pain points
-   - User preferences (from CLAUDE.md or similar)
+   - User preferences (from project instructions file, e.g. CLAUDE.md, .cursorrules, AGENTS.md)
 3. User picks which ones matter (or "all")
 4. Agent scans selected categories, presents summary of findings
 5. User reviews and approves or trims
@@ -231,7 +231,7 @@ For adding the skill to an existing project:
 1. Read taxonomy to get last_updated timestamp and current index
 2. Scan vault filesystem for notes not in taxonomy (manual additions) and taxonomy entries pointing to missing notes (deletions)
 3. Check recent git history (since `last_synced` in taxonomy frontmatter) for decision-worthy changes
-4. Compare CLAUDE.md and project config against stored preferences
+4. Compare project instructions file and project config against stored preferences
 5. Propose updates to user (new memories, stale removals, corrections)
 6. User approves, agent writes changes and updates taxonomy
 
@@ -301,9 +301,9 @@ Stateless, scales horizontally, team already familiar.
 
 The main `SKILL.md` should contain:
 
-1. **Activation conditions** -- when the skill applies (any project with `.claude/memory.json` or when user invokes `/memory-*` commands)
+1. **Activation conditions** -- when the skill applies (any project with `.engram/config.json` or when user invokes `/memory-*` commands)
 2. **Config resolution** -- how to find and read vault path and config
-3. **Core directives** -- autonomous trigger rules, write flow, subagent rule
+3. **Core directives** -- autonomous trigger rules, write flow, sub-agent rule
 4. **Retrieval protocol** -- the hybrid lookup strategy, token budget
 5. **Command definitions** -- `/memory-init`, `/memory-sync`, `/memory-optimize`
 
