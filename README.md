@@ -68,8 +68,8 @@ max_results: 5
 | Setting | Default | Purpose |
 |---------|---------|---------|
 | `auto_triggers` | `[correction, decision, preference, pattern]` | What the agent writes automatically |
-| `suggest_threshold_notes` | `30` | Minimum notes to suggest memory retrieval |
-| `max_note_length` | `500` | Max lines per note before splitting |
+| `suggest_threshold_notes` | `30` | Notes per folder before suggesting `/memory-optimize` |
+| `max_note_length` | `500` | Max lines per note before suggesting summarization |
 | `max_results` | `5` | Max memories to retrieve per query |
 
 ## Requirements

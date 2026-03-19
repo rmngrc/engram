@@ -62,11 +62,9 @@ auto_triggers:
   - decision
   - preference
   - pattern
-optimization:
-  suggest_threshold_notes: 30  # suggest optimization when any folder exceeds this many notes (counted from taxonomy index)
-  max_note_length: 500         # lines; suggest summarization above this
-retrieval:
-  max_results: 5               # limit results per lookup to save tokens
+suggest_threshold_notes: 30  # notes per folder before suggesting /memory-optimize (counted from taxonomy index)
+max_note_length: 500         # lines; suggest summarization above this
+max_results: 5               # limit results per lookup to save tokens
 ---
 ```
 
