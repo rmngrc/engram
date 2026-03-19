@@ -1,44 +1,93 @@
-# engram
+<p align="center">
+  <pre align="center">
 
-Autonomous memory management for AI coding agents using an Obsidian vault. Works with any AI tool that can follow markdown instructions.
+   ╔═╗╔╗╔╔═╗╦═╗╔═╗╔╦╗
+   ║╣ ║║║║ ╦╠╦╝╠═╣║║║
+   ╚═╝╝╚╝╚═╝╩╚═╩ ╩╩ ╩
 
-## What it does
+  </pre>
+  <strong>Persistent memory for AI coding agents</strong>
+  <br />
+  <em>Stores what your agent learns. Recalls it when it matters.</em>
+  <br /><br />
+  <a href="#installation">Install</a> &middot; <a href="#setup">Setup</a> &middot; <a href="#usage">Usage</a> &middot; <a href="#configuration">Config</a>
+</p>
 
-- **Autonomous memory storage** -- writes corrections, decisions, preferences, and patterns without being asked
-- **On-demand retrieval** -- pulls relevant memories to inform decisions and avoid repeating mistakes
-- **Vault organization** -- maintains a structured taxonomy; reorganizes as memory grows
-- **User commands** -- initialize vaults, sync with project state, optimize vault structure
+---
+
+## How it works
+
+Your AI agent gains long-term memory backed by an Obsidian vault. No code, no runtime -- just markdown instructions that teach any agent to remember.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### Writes automatically
+
+The agent detects and stores memory-worthy moments:
+
+> **Corrections** -- "Don't mock the DB in tests"
+>
+> **Decisions** -- "Chose Drizzle over Prisma because..."
+>
+> **Preferences** -- "User wants terse responses"
+>
+> **Patterns** -- "All API routes use middleware X"
+
+</td>
+<td width="50%" valign="top">
+
+### Retrieves on demand
+
+Before acting, the agent checks what it already knows:
+
+> Starting auth work? Check stored auth decisions.
+>
+> Person mentioned? Look up their profile.
+>
+> About to pick a library? See if you already decided.
+>
+> User asks "remember X"? Search the vault.
+
+</td>
+</tr>
+</table>
+
+### Organizes itself
+
+The vault grows organically. A taxonomy file acts as the table of contents -- one cheap read gives the agent a full map. When things get messy, `/memory-optimize` cleans house.
+
+---
 
 ## Installation
 
-### Claude Code (marketplace)
+### Claude Code
 
 ```
 /plugin add rmngrc/engram
 ```
 
-### Any AI tool (manual)
-
-Clone engram to a shared location:
+### Any AI tool
 
 ```bash
 git clone https://github.com/rmngrc/engram ~/.engram
 ```
 
-Then point your AI tool to the skill file at `~/.engram/skills/memory-manager/SKILL.md`. How you do this depends on the tool:
+Point your tool to `~/.engram/skills/memory-manager/SKILL.md`:
 
-| Tool | Where to reference the skill |
-|------|------------------------------|
-| **Cursor** | Add an include or reference in `.cursor/rules/` |
-| **GitHub Copilot** | Reference from `.github/copilot-instructions.md` |
-| **Gemini CLI** | Reference from `GEMINI.md` |
-| **Codex** | Reference from `AGENTS.md` |
-| **Windsurf** | Reference from `.windsurfrules` |
-| **Other** | Include the skill file path in your tool's system prompt or instructions config |
+| Tool | Where to reference |
+|------|-------------------|
+| Cursor | `.cursor/rules/` |
+| GitHub Copilot | `.github/copilot-instructions.md` |
+| Gemini CLI | `GEMINI.md` |
+| Codex | `AGENTS.md` |
+| Windsurf | `.windsurfrules` |
+| Other | System prompt or instructions config |
 
-### Roadmap
+> **Roadmap** -- `npx engram init` for automated setup
 
-- `npx engram init` -- automated setup that detects your AI tool and wires up the config
+---
 
 ## Setup
 
@@ -52,19 +101,25 @@ Create `.engram/config.json` in your project root:
 
 The agent will prompt to create the vault directory if it doesn't exist.
 
+---
+
 ## Usage
 
-The agent automatically captures corrections, decisions, preferences, and patterns during work. Memories persist across sessions and inform future decisions.
+The agent captures memories during normal work. No special commands needed for day-to-day use.
 
 ### Commands
 
-- **`/memory-init`** -- bootstrap a new memory vault for the current project
-- **`/memory-sync`** -- sync vault with current project state; detect stale memories
-- **`/memory-optimize`** -- audit and reorganize the vault (merges, prunes, summarizes)
+| Command | What it does |
+|---------|-------------|
+| `/memory-init` | Bootstrap a new memory vault from your project |
+| `/memory-sync` | Sync vault with current project state |
+| `/memory-optimize` | Audit and reorganize (merge, prune, summarize) |
+
+---
 
 ## Configuration
 
-Create `_meta/config.md` in your vault to override defaults:
+Drop `_meta/config.md` in your vault to override defaults:
 
 ```yaml
 ---
@@ -79,14 +134,16 @@ max_results: 5
 ---
 ```
 
-| Setting | Default | Purpose |
-|---------|---------|---------|
+| Setting | Default | What it controls |
+|---------|---------|-----------------|
 | `auto_triggers` | `[correction, decision, preference, pattern]` | What the agent writes automatically |
-| `suggest_threshold_notes` | `30` | Notes per folder before suggesting `/memory-optimize` |
-| `max_note_length` | `500` | Max lines per note before suggesting summarization |
-| `max_results` | `5` | Max memories to retrieve per query |
+| `suggest_threshold_notes` | `30` | Notes per folder before suggesting optimization |
+| `max_note_length` | `500` | Lines per note before suggesting summarization |
+| `max_results` | `5` | Max memories per retrieval |
+
+---
 
 ## Requirements
 
-- `obsidian-cli` installed and available in PATH
-- Obsidian vault directory (created automatically on first run if needed)
+- [`obsidian-cli`](https://github.com/Yakitrak/obsidian-cli) installed and in PATH
+- An Obsidian vault (created automatically on first run)
