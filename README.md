@@ -1,4 +1,4 @@
-# obsidian-memory
+# engram
 
 Autonomous memory management for Claude Code using an Obsidian vault. Stores decisions, corrections, preferences, and patterns across sessions.
 
@@ -14,8 +14,8 @@ Autonomous memory management for Claude Code using an Obsidian vault. Stores dec
 ### Via marketplace
 
 ```
-/plugin marketplace add rmngrc/obsidian-memory
-/plugin install obsidian-memory@obsidian-memory
+/plugin marketplace add rmngrc/engram
+/plugin install engram@engram
 ```
 
 ### Manual
@@ -23,7 +23,7 @@ Autonomous memory management for Claude Code using an Obsidian vault. Stores dec
 Clone into `.claude/`:
 
 ```bash
-git clone https://github.com/rmngrc/obsidian-memory ~/.claude/plugins/obsidian-memory
+git clone https://github.com/rmngrc/engram ~/.claude/plugins/engram
 ```
 
 ## Setup

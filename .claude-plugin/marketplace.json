@@ -1,12 +1,12 @@
 {
-  "name": "obsidian-memory",
+  "name": "engram",
   "owner": {
     "name": "rmngrc",
     "url": "https://github.com/rmngrc"
   },
   "plugins": [
     {
-      "name": "obsidian-memory",
+      "name": "engram",
       "source": "./",
       "description": "Autonomous memory management using Obsidian vaults",
       "version": "0.1.0"

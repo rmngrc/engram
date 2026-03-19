@@ -1,11 +1,11 @@
-# obsidian-memory: Design Spec
+# engram: Design Spec
 
 Pure-skill Claude Code plugin that uses obsidian-cli to autonomously manage an Obsidian vault as project memory.
 
 ## Plugin Structure
 
 ```
-obsidian-memory/
+engram/
   .claude-plugin/
     plugin.json
     marketplace.json

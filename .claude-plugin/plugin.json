@@ -1,12 +1,12 @@
 {
-  "name": "obsidian-memory",
+  "name": "engram",
   "version": "0.1.0",
   "description": "Autonomous memory management for Claude Code using an Obsidian vault. Use when working on any project that has a .claude/memory.json config file or when the user invokes /memory-init, /memory-sync, or /memory-optimize.",
   "author": {
     "name": "rmngrc",
     "url": "https://github.com/rmngrc"
   },
-  "repository": "https://github.com/rmngrc/obsidian-memory",
+  "repository": "https://github.com/rmngrc/engram",
   "license": "MIT",
   "keywords": [
     "memory",
