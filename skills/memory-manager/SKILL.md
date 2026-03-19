@@ -1,6 +1,6 @@
 ---
 name: memory-manager
-description: Autonomous memory management for Claude Code using an Obsidian vault. Activates when .claude/memory.json exists in the project or when the user invokes /memory-init, /memory-sync, or /memory-optimize.
+description: Autonomous memory management using an Obsidian vault. Activates when .engram/config.json exists in the project or when the user invokes /memory-init, /memory-sync, or /memory-optimize.
 ---
 
 # Memory Manager
@@ -14,7 +14,7 @@ Manages a persistent Obsidian vault as long-term memory for any project. Stores 
 
 ## Config Resolution
 
-1. On first memory operation, read `.claude/memory.json` from the project root
+1. On first memory operation, read `.engram/config.json` from the project root
 2. If the file doesn't exist, ask the user for the vault path and create the file:
    ```json
    { "vault": "/absolute/path/to/vault" }
@@ -42,7 +42,7 @@ If `_meta/config.md` is absent, use these defaults:
 
 **Taxonomy caching:** After reading taxonomy, keep it in conversation context. Invalidate (re-read) after any write that modifies the taxonomy.
 
-**Subagent rule:** If you are running as a subagent (dispatched by another agent), do NOT write to the memory vault. Include memory-worthy observations in your response to the parent agent. You may read from the vault.
+**Subagent rule:** If you are running as a sub-agent or delegated task (dispatched by a parent agent), do NOT write to the memory vault. Include memory-worthy observations in your response to the parent agent. You may read from the vault.
 
 **Error handling:** If an obsidian-cli command fails, retry once. If it fails again, inform the user with the error message. Never silently drop a memory.
 
@@ -72,7 +72,7 @@ These don't require detection heuristics -- they're direct instructions or well-
 **Do NOT store:**
 - Things derivable from code or git history
 - Ephemeral task state
-- Anything already in CLAUDE.md
+- Anything already in the project instructions file (CLAUDE.md, .cursorrules, AGENTS.md, etc.)
 - Duplicates (update the existing note instead)
 
 ## Write Flow
@@ -86,7 +86,7 @@ These don't require detection heuristics -- they're direct instructions or well-
    - `obsidian append file="folder/name" content="..." vault="name"` for updates
    - `obsidian read file="path" vault="name"` to check existing content before appending
 
-If obsidian-cli is unavailable, fall back to filesystem tools (Read, Write, Edit).
+If obsidian-cli is unavailable, fall back to filesystem operations (read, create, and edit files directly).
 
 ## Retrieval Protocol
 
@@ -98,7 +98,7 @@ Retrieval is on-demand only. Never preload memories at session start.
 4. If structured lookup finds nothing, fall back to `obsidian search query="..." vault="name"`
 5. Extract only the relevant information -- never dump entire notes into context
 
-If obsidian-cli is unavailable for search, fall back to Grep across the vault directory.
+If obsidian-cli is unavailable for search, fall back to searching file contents across the vault directory.
 
 See [RETRIEVAL.md](references/RETRIEVAL.md) for detailed lookup strategy and token budget rules.
 
