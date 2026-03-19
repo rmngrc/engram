@@ -10,10 +10,10 @@ Bootstrap the memory vault for an existing project. Run this once per project to
 
 **Step 1: Resolve config**
 
-Check if `.claude/memory.json` exists in the project root.
+Check if `.engram/config.json` exists in the project root.
 
 - If it exists, read it and confirm the vault path is valid.
-- If it does not exist, ask the user: "What path should I use for the memory vault?" Create `.claude/memory.json` with `{ "vault": "/absolute/path" }`. If the vault directory does not exist, ask whether to create it.
+- If it does not exist, ask the user: "What path should I use for the memory vault?" Create `.engram/config.json` with `{ "vault": "/absolute/path" }`. If the vault directory does not exist, ask whether to create it.
 
 **Step 2: Infer project type**
 
@@ -78,7 +78,7 @@ For each selected category, use the appropriate tools:
 
 - Read `.editorconfig` if present
 - Read linting configs: `.eslintrc*`, `eslint.config.*`, `.prettierrc*`, `pyproject.toml` `[tool.ruff]` / `[tool.black]`, `rustfmt.toml`, `.rubocop.yml`
-- Read `CLAUDE.md` or `.claude/CLAUDE.md` if present
+- Read project instructions file if present (e.g. `CLAUDE.md`, `.cursorrules`, `AGENTS.md`)
 - Note: indent style, line length limits, quote style, naming conventions, any project-specific rules
 
 **Known issues / pain points**
@@ -89,9 +89,9 @@ For each selected category, use the appropriate tools:
 
 **User preferences**
 
-- Read `CLAUDE.md` at the project root and at `~/.claude/CLAUDE.md` if accessible
+- Read the project instructions file if present (e.g. `CLAUDE.md`, `.cursorrules`, `AGENTS.md`, `GEMINI.md`, `.github/copilot-instructions.md`)
 - Read `.editorconfig`
-- Check for any `.claude/` directory contents beyond `memory.json`
+- Check for any `.engram/` directory contents beyond `config.json`
 - Capture: behavioral preferences, workflow rules, style preferences the user has expressed
 
 **Step 6: Present findings for approval**
@@ -153,7 +153,7 @@ For candidate commits, check if a corresponding memory already exists (search ta
 
 **Step 4: Compare config against stored preferences**
 
-Read current `CLAUDE.md`, `.editorconfig`, and linting configs.
+Read the current project instructions file (e.g. `CLAUDE.md`, `.cursorrules`, `AGENTS.md`), `.editorconfig`, and linting configs.
 
 Compare against any `preferences/` or `conventions/` notes in the vault.
 
@@ -237,7 +237,7 @@ Scan for notes with similar titles within the same folder. For pairs that look s
 
 **Stale content**
 
-For notes that reference specific files, functions, or classes (e.g., `src/utils/oldHelper.ts`, `function parseToken`), check if those targets still exist in the codebase. Use Glob or Grep to verify. Flag notes where the referenced code is gone.
+For notes that reference specific files, functions, or classes (e.g., `src/utils/oldHelper.ts`, `function parseToken`), check if those targets still exist in the codebase. Search the codebase to verify. Flag notes where the referenced code is gone.
 
 **Verbose notes**
 
@@ -280,7 +280,7 @@ Accept "all", "none", or a comma-separated list of item numbers. Execute only wh
 
 **Step 5: Execute approved changes**
 
-Use filesystem tools (Read, Write, Edit, Bash with `mv` / `rm`) since obsidian-cli does not support move or delete operations.
+Use filesystem operations (read, write, edit files; use `mv` / `rm` in the terminal) since obsidian-cli does not support move or delete operations.
 
 - **Split folder**: Create new subfolders, move note files, update taxonomy
 - **Merge notes**: Read both notes, write a merged version to the kept file path, delete the other file
