@@ -11,16 +11,29 @@
   </pre>
   <strong>Persistent memory for AI coding agents</strong>
   <br />
-  <em>Stores what your agent learns. Recalls it when it matters.</em>
+  <em>en·gram /ˈenˌɡram/ -- the physical trace a memory leaves in the brain. This is that, for your AI agent.</em>
   <br /><br />
-  <a href="#installation">Install</a> &middot; <a href="#setup">Setup</a> &middot; <a href="#usage">Usage</a> &middot; <a href="#configuration">Config</a>
+  <a href="#why">Why</a> &middot; <a href="#how-it-works">How</a> &middot; <a href="#installation">Install</a> &middot; <a href="#setup">Setup</a> &middot; <a href="#configuration">Config</a>
 </p>
+
+---
+
+## Why
+
+AI coding agents are stateless. Every session starts from zero. You correct the same mistakes, re-explain the same preferences, re-debate the same decisions.
+
+| Without engram | With engram |
+|---|---|
+| Agent pushes without asking (again) | Correction stored: "always ask before pushing" |
+| Re-debates JWT vs sessions every sprint | Decision recalled: "chose JWT, here's why" |
+| New session, new agent, zero context | Preferences and patterns carry over |
+| "I told you three times already" | Once is enough |
 
 ---
 
 ## How it works
 
-Your AI agent gains long-term memory backed by an Obsidian vault. No code, no runtime -- just markdown instructions that teach any agent to remember.
+Your agent gains long-term memory backed by an Obsidian vault. No code, no runtime -- just markdown instructions that teach any agent to remember.
 
 <table>
 <tr>
@@ -153,10 +166,8 @@ max_results: 5
 
 ---
 
-## Why "engram"?
+## About the name
 
-In neuroscience, an **engram** is the physical trace a memory leaves in the brain. The term was coined by German zoologist Richard Semon in 1904, from the Greek *en* (in) + *gramma* (something written) -- literally "something written in."
+The term *engram* was coined by Richard Semon in 1904, from Greek *en* (in) + *gramma* (something written). For over a century it was theoretical -- scientists knew memories had to live somewhere in the brain but couldn't find them. In the 2010s, MIT researchers finally identified and reactivated specific engram cells in mice, proving that discrete neuron clusters really do encode individual memories.
 
-For decades, engrams were theoretical. Scientists knew memories had to live somewhere in the brain, but couldn't pinpoint where or how. It wasn't until the 2010s that researchers at MIT were able to identify and even reactivate specific engram cells in mice, proving that discrete clusters of neurons really do encode individual memories.
-
-The parallel to this project is direct. AI coding agents are stateless by default -- every session starts from zero, and everything learned in conversation vanishes when the session ends. Engram gives them a physical trace: a structured Obsidian vault where corrections, decisions, preferences, and patterns are written down and retrieved when relevant. Each note in the vault is, quite literally, something written in -- an engram for your agent.
+Each note in the vault is the same idea: something written in. A physical trace of what your agent learned, stored where it can be found again.
