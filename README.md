@@ -1,34 +1,48 @@
 # engram
 
-Autonomous memory management for Claude Code using an Obsidian vault. Stores decisions, corrections, preferences, and patterns across sessions.
+Autonomous memory management for AI coding agents using an Obsidian vault. Works with any AI tool that can follow markdown instructions.
 
 ## What it does
 
-- **Autonomous memory storage** – Agent writes corrections, decisions, preferences, and patterns without being asked
-- **On-demand retrieval** – Pull relevant memories during work to inform decisions and avoid repeating mistakes
-- **Vault organization** – Maintains a structured taxonomy; rebuilds itself as your memory grows
-- **User commands** – Initialize vaults, sync with project state, optimize vault structure
+- **Autonomous memory storage** -- writes corrections, decisions, preferences, and patterns without being asked
+- **On-demand retrieval** -- pulls relevant memories to inform decisions and avoid repeating mistakes
+- **Vault organization** -- maintains a structured taxonomy; reorganizes as memory grows
+- **User commands** -- initialize vaults, sync with project state, optimize vault structure
 
 ## Installation
 
-### Via marketplace
+### Claude Code (marketplace)
 
 ```
-/plugin marketplace add rmngrc/engram
-/plugin install engram@engram
+/plugin add rmngrc/engram
 ```
 
-### Manual
+### Any AI tool (manual)
 
-Clone into `.claude/`:
+Clone engram to a shared location:
 
 ```bash
-git clone https://github.com/rmngrc/engram ~/.claude/plugins/engram
+git clone https://github.com/rmngrc/engram ~/.engram
 ```
+
+Then point your AI tool to the skill file at `~/.engram/skills/memory-manager/SKILL.md`. How you do this depends on the tool:
+
+| Tool | Where to reference the skill |
+|------|------------------------------|
+| **Cursor** | Add an include or reference in `.cursor/rules/` |
+| **GitHub Copilot** | Reference from `.github/copilot-instructions.md` |
+| **Gemini CLI** | Reference from `GEMINI.md` |
+| **Codex** | Reference from `AGENTS.md` |
+| **Windsurf** | Reference from `.windsurfrules` |
+| **Other** | Include the skill file path in your tool's system prompt or instructions config |
+
+### Roadmap
+
+- `npx engram init` -- automated setup that detects your AI tool and wires up the config
 
 ## Setup
 
-Create `.claude/memory.json` in your project root:
+Create `.engram/config.json` in your project root:
 
 ```json
 {
@@ -44,9 +58,9 @@ The agent automatically captures corrections, decisions, preferences, and patter
 
 ### Commands
 
-- **`/memory-init`** – Bootstrap a new memory vault for the current project
-- **`/memory-sync`** – Sync vault with current project state; detect stale memories
-- **`/memory-optimize`** – Audit and reorganize the vault (merges, prunes, summarizes)
+- **`/memory-init`** -- bootstrap a new memory vault for the current project
+- **`/memory-sync`** -- sync vault with current project state; detect stale memories
+- **`/memory-optimize`** -- audit and reorganize the vault (merges, prunes, summarizes)
 
 ## Configuration
 
