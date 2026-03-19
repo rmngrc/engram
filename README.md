@@ -150,3 +150,13 @@ max_results: 5
 
 - [`obsidian-cli`](https://github.com/Yakitrak/obsidian-cli) installed and in PATH
 - An Obsidian vault (created automatically on first run)
+
+---
+
+## Why "engram"?
+
+In neuroscience, an **engram** is the physical trace a memory leaves in the brain. The term was coined by German zoologist Richard Semon in 1904, from the Greek *en* (in) + *gramma* (something written) -- literally "something written in."
+
+For decades, engrams were theoretical. Scientists knew memories had to live somewhere in the brain, but couldn't pinpoint where or how. It wasn't until the 2010s that researchers at MIT were able to identify and even reactivate specific engram cells in mice, proving that discrete clusters of neurons really do encode individual memories.
+
+The parallel to this project is direct. AI coding agents are stateless by default -- every session starts from zero, and everything learned in conversation vanishes when the session ends. Engram gives them a physical trace: a structured Obsidian vault where corrections, decisions, preferences, and patterns are written down and retrieved when relevant. Each note in the vault is, quite literally, something written in -- an engram for your agent.
